@@ -234,3 +234,145 @@
         }
 
         .price {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.3rem;
+            background: var(--light);
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links li:not(:last-child) {
+                display: none;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .flip-card {
+                max-width: 290px;
+                height: 380px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">JUICED</div>
+        <ul class="nav-links">
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact" class="btn-pill">Visit Us</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content glass-panel">
+            <h1>Fuel Your Body Right</h1>
+            <p>Experience the finest Smoothies, Raw Juices, and Light Meals crafted for your daily wellness.</p>
+            <button class="btn-pill btn-primary">View Menu</button>
+        </div>
+    </header>
+
+    <section id="menu" class="menu-section">
+        <h2>Our Signatures</h2>
+        <div class="menu-container">
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-panel">
+                        <h3>Raw Juices</h3>
+                        <span class="badge-pill">View Details</span>
+                    </div>
+                    <div class="flip-card-back glass-panel">
+                        <h3>Cold-Pressed</h3>
+                        <p>Pressed fresh daily to preserve essential vitamins, live enzymes, and uncompromised flavor profile.</p>
+                        <span class="price">$7.50</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-panel">
+                        <h3>Smoothie Bowls</h3>
+                        <span class="badge-pill">View Details</span>
+                    </div>
+                    <div class="flip-card-back glass-panel">
+                        <h3>Superfood Mix</h3>
+                        <p>Thick blended base served chilled and layered with organic hemp seeds, house granola, and seasonal fruit.</p>
+                        <span class="price">$11.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-panel">
+                        <h3>Health Shots</h3>
+                        <span class="badge-pill">View Details</span>
+                    </div>
+                    <div class="flip-card-back glass-panel">
+                        <h3>Immunity Boost</h3>
+                        <p>Fiery cold-fighting blends formulated concentrated with raw ginger, standard turmeric extract, and lemon.</p>
+                        <span class="price">$4.50</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-panel">
+                        <h3>Light Meals</h3>
+                        <span class="badge-pill">View Details</span>
+                    </div>
+                    <div class="flip-card-back glass-panel">
+                        <h3>Macro Plates</h3>
+                        <p>Artisan greens tossed gently with premium plant proteins, crisp microgreens, and clean tracking-conscious dressings.</p>
+                        <span class="price">$13.00</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Dynamic Navbar transparent to opaque toggle on scroll
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for scroll interaction element reveal
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.flip-card').forEach((item, index) => {
+            item.style.transition = `opacity 0.6s ease, transform 0.6s ease`;
+            item.style.transitionDelay = `${index * 0.15}s`;
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
