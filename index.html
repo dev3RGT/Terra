@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERRA | Fresh & Raw</title>
+    <title>JUICED | Fresh & Raw</title>
     <style>
         :root {
             --primary: #10B981;
             --dark: #1F2937;
             --light: #F3F4F6;
-            --glass-bg: rgba(255, 255, 255, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.6);
         }
 
         * {
@@ -27,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        /* Glassmorphism Utility */
+        /* Glassmorphic Panel Design */
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -81,7 +81,7 @@
             color: var(--primary);
         }
 
-        /* Pill Buttons */
+        /* Pill UI Elements */
         .btn-pill {
             padding: 0.75rem 1.75rem;
             border-radius: 9999px;
@@ -136,16 +136,11 @@
             color: var(--dark);
         }
 
-        .hero-content p {
-            font-size: 1.1rem;
-            color: #374151;
-        }
-
-        /* Menu Section */
+        /* Menu Section (Vertical Layout) */
         .menu-section {
             padding: 6rem 5%;
             text-align: center;
-            max-width: 1400px;
+            max-width: 800px; /* Limits width to keep the vertical stack looking elegant */
             margin: 0 auto;
         }
 
@@ -155,29 +150,91 @@
             color: var(--dark);
         }
 
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        /* Changed grid format to a centered vertical layout */
+        .menu-container {
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
+            align-items: center;
+            width: 100%;
         }
 
-        .menu-item {
-            padding: 2.5rem 2rem;
-            text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0; /* Hidden initially for animation */
+        /* 3D Card Flip Setup */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            max-width: 550px;
+            height: 180px; /* Fixed height required for 3D layout tracking */
+            perspective: 1000px; 
+            opacity: 0; /* Hidden initially for reveal JS animation */
             transform: translateY(30px);
         }
 
-        .menu-item:hover {
-            transform: translateY(-5px) !important;
-            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
         }
 
-        .menu-item h3 {
+        /* Trigger rotation on hover */
+        .flip-card:hover .flip-card-inner {
+            transform: rotateX(180deg); /* Flips vertically. Change to rotateY for horizontal flip */
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Hide face when inverted */
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        /* Front Face styling */
+        .flip-card-front h3 {
+            color: var(--dark);
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .flip-card-front p {
+            font-size: 0.9rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Back Face styling */
+        .flip-card-back {
+            transform: rotateX(180deg); /* Default inverted position */
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .flip-card-back h3 {
+            color: var(--primary);
             font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .flip-card-back p {
+            color: #4B5563;
+            font-size: 1rem;
+            max-width: 90%;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.1rem;
         }
 
         /* Mobile Responsiveness */
@@ -188,15 +245,17 @@
             .hero-content h1 {
                 font-size: 2.5rem;
             }
-            .hero-content {
-                padding: 3rem 1.5rem;
+            .flip-card {
+                height: 220px; /* Gives extra vertical room for wrapped text on smaller screens */
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- Navigation -->
     <nav class="navbar">
-        <div class="logo">TERRA</div>
+        <div class="logo">JUICED</div>
         <ul class="nav-links">
             <li><a href="#menu">Menu</a></li>
             <li><a href="#about">About</a></li>
@@ -204,6 +263,7 @@
         </ul>
     </nav>
 
+    <!-- Hero Section -->
     <header class="hero">
         <div class="hero-content glass-panel">
             <h1>Fuel Your Body Right</h1>
@@ -212,30 +272,76 @@
         </div>
     </header>
 
+    <!-- Menu Section -->
     <section id="menu" class="menu-section">
         <h2>Our Signatures</h2>
-        <div class="menu-grid">
-            <div class="menu-item glass-panel">
-                <h3>Raw Juices</h3>
-                <p>Cold-pressed daily to retain maximum nutrients, vibrant color, and pure flavor.</p>
+        <div class="menu-container">
+
+            <!-- Card 1 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-panel">
+                        <h3>Raw Juices</h3>
+                        <p>✦ Tap to reveal details ✦</p>
+                    </div>
+                    <div class="flip-card-back glass-panel">
+                        <h3>100% Organic Cold-Pressed</h3>
+                        <p>Pressed fresh daily to preserve vitamins, enzymes, and true refreshing flavor profile.</p>
+                        <span class="price">$7.50</span>
+                    </div>
+                </div>
             </div>
-            <div class="menu-item glass-panel">
-                <h3>Smoothie Bowls</h3>
-                <p>Thick, creamy, and generously topped with fresh seasonal fruits and superfoods.</p>
+
+            <!-- Card 2 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-panel">
+                        <h3>Smoothie Bowls</h3>
+                        <p>✦ Tap to reveal details ✦</p>
+                    </div>
+                    <div class="flip-card-back glass-panel">
+                        <h3>Superfood Nutrient Packed</h3>
+                        <p>Thick, blended base served chilled and layered with organic hemp seeds, house granola, and seasonal fruit.</p>
+                        <span class="price">$11.00</span>
+                    </div>
+                </div>
             </div>
-            <div class="menu-item glass-panel">
-                <h3>Health Shots</h3>
-                <p>Quick, concentrated wellness boosts featuring ginger, turmeric, and wheatgrass.</p>
+
+            <!-- Card 3 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-panel">
+                        <h3>Health Shots</h3>
+                        <p>✦ Tap to reveal details ✦</p>
+                    </div>
+                    <div class="flip-card-back glass-panel">
+                        <h3>Concentrated Wellness Boost</h3>
+                        <p>Fiery cold-fighting blends formulated with raw ginger, standard turmeric extract, and local lemon.</p>
+                        <span class="price">$4.50</span>
+                    </div>
+                </div>
             </div>
-            <div class="menu-item glass-panel">
-                <h3>Light Meals</h3>
-                <p>Wholesome, crisp salads and artisan wraps for a perfectly balanced day.</p>
+
+            <!-- Card 4 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-panel">
+                        <h3>Light Meals</h3>
+                        <p>✦ Tap to reveal details ✦</p>
+                    </div>
+                    <div class="flip-card-back glass-panel">
+                        <h3>Fresh Macro-Balanced Plates</h3>
+                        <p>Artisan greens tossed gently with premium plant proteins, microgreens, and tracking-conscious dressings.</p>
+                        <span class="price">$13.00</span>
+                    </div>
+                </div>
             </div>
+
         </div>
     </section>
 
     <script>
-        // Dynamic Navbar Styling on Scroll
+        // Dynamic Navbar transparent to opaque swap on scroll
         const navbar = document.querySelector('.navbar');
 
         window.addEventListener('scroll', () => {
@@ -246,11 +352,11 @@
             }
         });
 
-        // Scroll Animation for Menu Items
+        // Scroll Intersection Reveal Animation targeting parent flip frames
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.15 
+            threshold: 0.1
         };
 
         const observer = new IntersectionObserver((entries, observer) => {
@@ -263,8 +369,9 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.menu-item').forEach((item, index) => {
-            item.style.transition = `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
+        document.querySelectorAll('.flip-card').forEach((item, index) => {
+            item.style.transition = `opacity 0.6s ease, transform 0.6s ease`;
+            item.style.transitionDelay = `${index * 0.15}s`;
             observer.observe(item);
         });
     </script>
