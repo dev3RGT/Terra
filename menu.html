@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Menu | Crave & Co.</title>
+    <style>
+        :root {
+            --primary: #D97706; /* Premium warm amber */
+            --dark: #111827;
+            --light: #F9FAFB;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 5rem;
+        }
+
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.03);
+        }
+
+        /* Navigation Header */
+        .menu-header {
+            text-align: center;
+            padding: 4rem 1rem 2rem 1rem;
+        }
+
+        .menu-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-header p {
+            color: #6B7280;
+            font-size: 1.1rem;
+        }
+
+        /* Pill-shaped Tab Navigation */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 2rem auto 4rem auto;
+            padding: 0.5rem;
+            max-width: fit-content;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            border: 1px solid transparent;
+            background-color: white;
+            color: #4B5563;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn:hover {
+            color: var(--dark);
+            background-color: #F3F4F6;
+        }
+
+        .tab-btn.active {
+            background-color: var(--dark);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(17, 24, 39, 0.2);
+        }
+
+        /* Menu Grid Sections */
+        .menu-section {
+            display: none; /* Controlled via JS */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .menu-section.active {
+            display: grid;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Menu Item Cards */
+        .menu-card {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .price-pill {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.9rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .menu-card p {
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 640px) {
+            .menu-header h1 {
+                font-size: 2.2rem;
+            }
+            .tab-container {
+                width: 90%;
+                justify-content: flex-start;
+                padding-bottom: 1rem;
+            }
+            .menu-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="menu-header">
+        <h1>Crafted Collection</h1>
+        <p>Fresh ingredients, bold profiles, made to order.</p>
+    </header>
+
+    <div class="tab-container glass-panel">
+        <button class="tab-btn active" onclick="switchCategory('burgers')">Burgers</button>
+        <button class="tab-btn" onclick="switchCategory('pizza')">Pizza</button>
+        <button class="tab-btn" onclick="switchCategory('dessert')">Dessert</button>
+        <button class="tab-btn" onclick="switchCategory('drinks')">Drinks</button>
+    </div>
+
+    <section id="burgers" class="menu-section active">
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>The Vintage Smash</h3>
+                <span class="price-pill">$14.50</span>
+            </div>
+            <p>Double smashed angus beef, sharp cheddar, heirloom tomato, crisp lettuce, house signature sauce.</p>
+        </div>
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Truffle Mushroom</h3>
+                <span class="price-pill">$16.00</span>
+            </div>
+            <p>Single prime patty, wild sautéed mushrooms, melted swiss cheese, white truffle aioli spread.</p>
+        </div>
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Spicy Avocado Hot</h3>
+                <span class="price-pill">$15.00</span>
+            </div>
+            <p>Crispy buttermilk chicken breast, fresh avocado mash, pepper jack, charred jalapeño relish.</p>
+        </div>
+    </section>
+
+    <section id="pizza" class="menu-section">
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Hot Honey Pepperoni</h3>
+                <span class="price-pill">$18.50</span>
+            </div>
+            <p>Artisan pepperoni, fresh mozzarella, spicy habanero infused honey drizzle, fresh basil crush.</p>
+        </div>
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Artisan Margherita</h3>
+                <span class="price-pill">$16.00</span>
+            </div>
+            <p>San marzano tomato base, pulled fior di latte mozzarella, extra virgin olive oil, sea salt leaves.</p>
+        </div>
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Prosciutto & Wild Fig</h3>
+                <span class="price-pill">$21.00</span>
+            </div>
+            <p>Shaved prosciutto di parma, sweet black mission figs, wild arugula, aged balsamic reduction glass glaze.</p>
+        </div>
+    </section>
+
+    <section id="dessert" class="menu-section">
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Molten Lava Cake</h3>
+                <span class="price-pill">$9.50</span>
+            </div>
+            <p>Dark chocolate cake center core, vanilla bean gelato scoop, crushed espresso sprinkle finish.</p>
+        </div>
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Matcha Panna Cotta</h3>
+                <span class="price-pill">$8.50</span>
+            </div>
+            <p>Silky ceremonial grade matcha pudding base served chilled with macerated fresh strawberry glaze syrup.</p>
+        </div>
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Salted Caramel Tart</h3>
+                <span class="price-pill">$10.00</span>
+            </div>
+            <p>Buttery shortbread crust cavity filled dense with rich caramel fudge mix, flaky maldon salt pyramids.</p>
+        </div>
+    </section>
+
+    <section id="drinks" class="menu-section">
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Craft Berry Lemonade</h3>
+                <span class="price-pill">$5.50</span>
+            </div>
+            <p>Muddled blackberries, freshly squeezed organic lemon elements, sparkling mineral water hydration.</p>
+        </div>
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Cold Brew Tonic</h3>
+                <span class="price-pill">$6.00</span>
+            </div>
+            <p>Single origin ethiopean cold brew concentrate, citrus fever-tree tonic, expressed orange peel strip.</p>
+        </div>
+        <div class="menu-card glass-panel">
+            <div class="card-header">
+                <h3>Smoked Old Fashioned</h3>
+                <span class="price-pill">$7.50</span>
+            </div>
+            <p>Non-alcoholic charred oak barrel extraction base mix, aromatic bitters, brown sugar cubes, cherry wood smoke finish.</p>
+        </div>
+    </section>
+
+    <script>
+        function switchCategory(categoryId) {
+            // 1. Handle Active State Toggle for Buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Find button running the callback event to label active
+            const clickedButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(categoryId));
+            if(clickedButton) clickedButton.classList.add('active');
+
+            // 2. Handle Display Transition Logic for Grid Elements
+            const sections = document.querySelectorAll('.menu-section');
+            
+            sections.forEach(section => {
+                if (section.classList.contains('active')) {
+                    // Soft fade out target element
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(15px)';
+                    
+                    // Await transition duration completion, swap display format classes
+                    setTimeout(() => {
+                        section.classList.remove('active');
+                        triggerFadeIn(categoryId);
+                    }, 250);
+                }
+            });
+        }
+
+        function triggerFadeIn(targetId) {
+            const targetSection = document.getElementById(targetId);
+            targetSection.classList.add('active');
+            
+            // Minor execution frame delay for DOM layout render cycle to transition cleanly
+            setTimeout(() => {
+                targetSection.style.opacity = '1';
+                targetSection.style.transform = 'translateY(0)';
+            }, 50);
+        }
+    </script>
+</body>
+</html>
