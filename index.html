@@ -33,7 +33,7 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            border-radius: 32px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
         }
 
@@ -136,11 +136,11 @@
             color: var(--dark);
         }
 
-        /* Menu Section (Vertical Layout) */
+        /* Menu Section */
         .menu-section {
             padding: 6rem 5%;
             text-align: center;
-            max-width: 800px; /* Limits width to keep the vertical stack looking elegant */
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -150,23 +150,23 @@
             color: var(--dark);
         }
 
-        /* Changed grid format to a centered vertical layout */
+        /* Centered Vertical Stack Layout */
         .menu-container {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 3rem;
             align-items: center;
             width: 100%;
         }
 
-        /* 3D Card Flip Setup */
+        /* 3D Portrait Card Frame */
         .flip-card {
             background-color: transparent;
             width: 100%;
-            max-width: 550px;
-            height: 180px; /* Fixed height required for 3D layout tracking */
+            max-width: 320px; /* Portrait configuration width */
+            height: 420px;    /* Taller vertical orientation height */
             perspective: 1000px; 
-            opacity: 0; /* Hidden initially for reveal JS animation */
+            opacity: 0; 
             transform: translateY(30px);
         }
 
@@ -179,201 +179,58 @@
             transform-style: preserve-3d;
         }
 
-        /* Trigger rotation on hover */
+        /* Horizontal 3D Flip Action */
         .flip-card:hover .flip-card-inner {
-            transform: rotateX(180deg); /* Flips vertically. Change to rotateY for horizontal flip */
+            transform: rotateY(180deg);
         }
 
         .flip-card-front, .flip-card-back {
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden; /* Hide face when inverted */
+            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 2.5rem;
         }
 
-        /* Front Face styling */
+        /* Front Face Styling */
         .flip-card-front h3 {
             color: var(--dark);
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
         }
 
-        .flip-card-front p {
-            font-size: 0.9rem;
+        .badge-pill {
+            background-color: rgba(16, 185, 129, 0.1);
             color: var(--primary);
-            font-weight: 600;
+            padding: 0.4rem 1.2rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* Back Face styling */
+        /* Back Face Styling */
         .flip-card-back {
-            transform: rotateX(180deg); /* Default inverted position */
+            transform: rotateY(180deg);
             background: rgba(255, 255, 255, 0.95);
         }
 
         .flip-card-back h3 {
             color: var(--primary);
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
         }
 
         .flip-card-back p {
             color: #4B5563;
             font-size: 1rem;
-            max-width: 90%;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .price {
-            font-weight: 700;
-            color: var(--dark);
-            font-size: 1.1rem;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .nav-links li:not(:last-child) {
-                display: none;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .flip-card {
-                height: 220px; /* Gives extra vertical room for wrapped text on smaller screens */
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">JUICED</div>
-        <ul class="nav-links">
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact" class="btn-pill">Visit Us</a></li>
-        </ul>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content glass-panel">
-            <h1>Fuel Your Body Right</h1>
-            <p>Experience the finest Smoothies, Raw Juices, and Light Meals crafted for your daily wellness.</p>
-            <button class="btn-pill btn-primary">View Menu</button>
-        </div>
-    </header>
-
-    <!-- Menu Section -->
-    <section id="menu" class="menu-section">
-        <h2>Our Signatures</h2>
-        <div class="menu-container">
-
-            <!-- Card 1 -->
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front glass-panel">
-                        <h3>Raw Juices</h3>
-                        <p>✦ Tap to reveal details ✦</p>
-                    </div>
-                    <div class="flip-card-back glass-panel">
-                        <h3>100% Organic Cold-Pressed</h3>
-                        <p>Pressed fresh daily to preserve vitamins, enzymes, and true refreshing flavor profile.</p>
-                        <span class="price">$7.50</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front glass-panel">
-                        <h3>Smoothie Bowls</h3>
-                        <p>✦ Tap to reveal details ✦</p>
-                    </div>
-                    <div class="flip-card-back glass-panel">
-                        <h3>Superfood Nutrient Packed</h3>
-                        <p>Thick, blended base served chilled and layered with organic hemp seeds, house granola, and seasonal fruit.</p>
-                        <span class="price">$11.00</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front glass-panel">
-                        <h3>Health Shots</h3>
-                        <p>✦ Tap to reveal details ✦</p>
-                    </div>
-                    <div class="flip-card-back glass-panel">
-                        <h3>Concentrated Wellness Boost</h3>
-                        <p>Fiery cold-fighting blends formulated with raw ginger, standard turmeric extract, and local lemon.</p>
-                        <span class="price">$4.50</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front glass-panel">
-                        <h3>Light Meals</h3>
-                        <p>✦ Tap to reveal details ✦</p>
-                    </div>
-                    <div class="flip-card-back glass-panel">
-                        <h3>Fresh Macro-Balanced Plates</h3>
-                        <p>Artisan greens tossed gently with premium plant proteins, microgreens, and tracking-conscious dressings.</p>
-                        <span class="price">$13.00</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <script>
-        // Dynamic Navbar transparent to opaque swap on scroll
-        const navbar = document.querySelector('.navbar');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Scroll Intersection Reveal Animation targeting parent flip frames
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.flip-card').forEach((item, index) => {
-            item.style.transition = `opacity 0.6s ease, transform 0.6s ease`;
-            item.style.transitionDelay = `${index * 0.15}s`;
-            observer.observe(item);
-        });
-    </script>
-</body>
-</html>
